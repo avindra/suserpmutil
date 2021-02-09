@@ -1,4 +1,4 @@
-# suserpmutil
+# suserpmutil  [![CI Status](https://github.com/avindra/suserpmutil/workflows/ShellCheck/badge.svg)](https://github.com/avindra/suserpmutil/actions)
 
 These are various scripts that assist in packaging sources for RPM `.spec`s.
 
