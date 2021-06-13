@@ -10,4 +10,4 @@ jobs:
     - name: Run ShellCheck
       uses: bewuethr/shellcheck-action@master
       env:
-        SHELLCHECK_OPTS: -e SC2164 
+        SHELLCHECK_OPTS: -e SC2002
