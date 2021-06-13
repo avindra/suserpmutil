@@ -5,7 +5,7 @@
 # for the related source.
 
 # remove previous artifact, if any
-destdir="/tmp"
+destdir="$(mktemp -d /tmp/revendor.XXXXXXXXXX)"
 target="vendor.tar.xz"
 if [ -f "$target" ]; then
 	rm $target
