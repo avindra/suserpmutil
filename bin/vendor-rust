@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/sh
 
 # Packaging script for Rust:
 # create vendor tarball
@@ -7,14 +7,14 @@
 # remove previous artifact, if any
 destdir="/tmp"
 target="vendor.tar.xz"
-if [[ -f "$target" ]]; then
+if [ -f "$target" ]; then
 	rm $target
 fi
 
 # target specific archive
 file="$1"
 
-if [[ -z "$file" ]]; then
+if [ -z "$file" ]; then
 	project=$(basename "$PWD")
 	file=$(ls ./*"${project}"*tar*)
 	echo "Inferred $file as target"
@@ -40,6 +40,13 @@ done
 
 CARGO_NET_GIT_FETCH_WITH_CLI=true cargo vendor
 
+## Post-vendor fixes
+if [ -d vendor/winapi ]; then
+	echo -n "WINAPI detected. Removing MS binaries... "
+	rm -fr vendor/winapi*gnu*/lib/*.a
+	echo "done"
+fi
+
 time tar -cf - vendor/ |  xz -9 -c - > "$target"
 
 # get back to project dir
@@ -53,4 +60,3 @@ ls -lh "$tarball"
 echo -n "Copying ..."
 cp "$tarball" .
 echo -n "done"
-
