@@ -44,6 +44,7 @@ CARGO_NET_GIT_FETCH_WITH_CLI=true cargo vendor
 if [ -d vendor/winapi ]; then
 	echo -n "WINAPI detected. Removing MS binaries... "
 	rm -fr vendor/winapi*gnu*/lib/*.a
+	rm -fr vendor/windows*/lib/*windows.a
 	echo "done"
 fi
 
