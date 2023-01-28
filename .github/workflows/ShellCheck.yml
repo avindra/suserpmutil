@@ -8,6 +8,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run ShellCheck
-      uses: bewuethr/shellcheck-action@master
+      uses: bewuethr/shellcheck-action@main
       env:
         SHELLCHECK_OPTS: -e SC2002 -e SC2164
