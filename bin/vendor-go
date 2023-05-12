@@ -13,6 +13,8 @@ pushd "$destdir"
 tar xf "$file"
 pushd "$foldername"
 
+# https://stackoverflow.com/a/58512507/270302
+go mod tidy
 go mod vendor
 target="$destdir/vendor.tar.xz"
 
