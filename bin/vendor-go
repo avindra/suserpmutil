@@ -16,9 +16,10 @@ pushd "$foldername"
 # https://stackoverflow.com/a/58512507/270302
 go mod tidy
 go mod vendor
-target="$destdir/vendor.tar.xz"
 
-time tar -cf - vendor/ |  xz -2 -c - > "$target"
+target="$destdir/$foldername/vendor.tar.zst"
+#time tar --zstd -cf vendor.tar.zst vendor/
+time tar -c -I 'zstd -19 -T0' -f vendor.tar.zst vendor/
 
 popd
 popd
