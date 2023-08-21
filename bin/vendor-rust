@@ -40,12 +40,26 @@ done
 
 CARGO_NET_GIT_FETCH_WITH_CLI=true cargo vendor
 
+function scrubDir {
+	find vendor -type d -name "$1" | while read dir; do
+		if [ -f "$dir/.cargo-checksum.json" ]; then
+			echo '{"files":{},"package":""}' > "$dir/.cargo-checksum.json"
+		fi
+	done
+}
+
 ## Post-vendor fixes
 if [ -d vendor/winapi ]; then
 	echo -n "WINAPI detected. Removing MS binaries... "
-	rm -fr vendor/winapi*gnu*/lib/*.a
-	rm -fr vendor/windows*/lib/*windows*.a \
-				 vendor/windows*/lib/*windows*.lib
+	rm -fr \
+		vendor/winapi*gnu*/lib/*.a \
+		vendor/windows*/lib/*windows*.lib \
+		vendor/windows*gnu*/lib/libwindows.*
+
+	scrubDir "winapi*gnu*"
+	scrubDir "windows*"
+	scrubDir "windows*gnu*"
+
 	echo "done"
 fi
 
